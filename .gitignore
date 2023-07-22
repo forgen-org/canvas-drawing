@@ -1,0 +1,8 @@
+node_modules
+target
+dist
+pkg
+/playwright/report
+/playwright/.cache
+/playwright/playwright/.cache
+/playwright/result
