@@ -1,0 +1,23 @@
+{
+  "name": "@constellation-org/canvas-drawing",
+  "version": "1.0.0",
+  "description": "A bunch of functions that make canvas drawing easier",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/constellation-org/canvas-drawing.git"
+  },
+  "keywords": [
+    "canvas",
+    "drawing"
+  ],
+  "author": "Alexis Besson",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/constellation-org/canvas-drawing/issues"
+  },
+  "homepage": "https://github.com/constellation-org/canvas-drawing#readme"
+}
