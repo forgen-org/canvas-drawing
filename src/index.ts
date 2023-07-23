@@ -1,3 +1,1 @@
-export const foo = (s: string): void => {
-  console.log(s)
-}
+export { drawRectangle } from './drawing/rectangle'
