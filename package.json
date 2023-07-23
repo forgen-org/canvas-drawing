@@ -1,7 +1,7 @@
 {
   "name": "@constellation-org/canvas-drawing",
   "version": "1.0.0",
-  "description": "A bunch of functions that make canvas drawing easier",
+  "description": "A bunch of functions with css like arguments that make canvas drawing easier",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
