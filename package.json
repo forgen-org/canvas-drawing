@@ -2,8 +2,10 @@
   "name": "@constellation-org/canvas-drawing",
   "version": "1.0.0",
   "description": "A bunch of functions that make canvas drawing easier",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
+    "prepublish": "tsc && npm link",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -19,5 +21,9 @@
   "bugs": {
     "url": "https://github.com/constellation-org/canvas-drawing/issues"
   },
-  "homepage": "https://github.com/constellation-org/canvas-drawing#readme"
+  "homepage": "https://github.com/constellation-org/canvas-drawing#readme",
+  "devDependencies": {
+    "prettier": "^3.0.0",
+    "typescript": "^5.1.6"
+  }
 }
