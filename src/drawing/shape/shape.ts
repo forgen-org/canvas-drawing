@@ -1,4 +1,4 @@
-type RectangleToDraw = {
+export type ShapeToDraw = {
   x: number
   y: number
   width: number
@@ -15,15 +15,20 @@ const DEFAULT_BORDER_WIDTH = 4
 const DEFAULT_BORDER_COLOR = '#000'
 const DASHED_EMPTY_FULL_RATIO = 2.4
 
-export const drawRectangle = (
+export const drawShape = (
   context: CanvasRenderingContext2D,
-  args: RectangleToDraw
+  path: (context: CanvasRenderingContext2D, args: ShapeToDraw) => void,
+  args: ShapeToDraw
 ) => {
   context.save()
-  context.clip()
 
-  context.beginPath()
-  context.rect(args.x, args.y, args.width, args.height)
+  path(context, args)
+
+  // Clip because stroke is centered
+  // so shape (border included)
+  // can overflow the given width and height
+  // if borderWidth > 1
+  context.clip()
 
   context.globalAlpha = args.opacity ?? DEFAULT_OPACITY
 
@@ -34,7 +39,7 @@ export const drawRectangle = (
 
   context.strokeStyle = args.borderColor ?? DEFAULT_BORDER_COLOR
 
-  // Default stroke in centered and cannot be changed to inner
+  // Default stroke is centered and cannot be changed to inner
   // so clip + multiplying by 2 do the job
   context.lineWidth = (args.borderWidth ?? DEFAULT_BORDER_WIDTH) * 2
 

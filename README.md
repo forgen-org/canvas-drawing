@@ -11,20 +11,33 @@ function App() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
   useEffect(() => {
-    if (canvasRef.current) {
-      const context = canvasRef.current.getContext('2d')
-      if (context) {
-        drawRectangle(context, {
-          x: 20,
-          y: 20,
-          width: 50,
-          height: 50,
-          backgroundColor: 'red',
-          borderColor: 'blue'
-          opacity: 0.5 
-        })
-      }
-    }
+    const context = canvasRef.current.getContext('2d')
+    drawDiamond(context, {
+      x: 260,
+      y: 40,
+      width: 100,
+      height: 100,
+      borderColor: '#ef476f',
+      borderWidth: 10,
+      backgroundColor: '#809bce'
+    })
+    drawRectangle(context, {
+      x: 100,
+      y: 100,
+      width: 260,
+      height: 120,
+      borderColor: '#FFF',
+      backgroundColor: '#83c5be',
+      opacity: 0.6
+    })
+    drawEllipse(context, {
+      x: 420,
+      y: 120,
+      width: 100,
+      height: 100,
+      borderColor: '#FFF',
+      borderStyle: 'dotted'
+    })
   }, [])
   return (
     <canvas ref={canvasRef} />
@@ -32,8 +45,9 @@ function App() {
 
 }
 ```
+![Screenshot](./screenshot/shapes.jpg)
 
-## drawRectangle
+## drawRectangle, drawEllipse, drawDiamond
 
 | Parameter | Type     | Description                       |
 | :-------- | :------- | :-------------------------------- |
