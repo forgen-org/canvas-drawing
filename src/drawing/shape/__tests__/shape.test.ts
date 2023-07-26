@@ -1,6 +1,6 @@
-import {drawDiamond} from '../diamond'
-import {drawEllipse} from '../ellipse'
-import { drawRectangle } from '../rectangle'
+import Rectangle from '../rectangle'
+import Ellipse from '../ellipse'
+import Diamond from '../diamond'
 
 describe('[Shape]', () => {
   let canvas: HTMLCanvasElement
@@ -12,26 +12,34 @@ describe('[Shape]', () => {
     context = canvas.getContext('2d') as CanvasRenderingContext2D
   })
   it('should have a red background', () => {
-    drawRectangle(context, { x: 20, y: 30, width: 60, height: 40, backgroundColor: 'red'})
+    const rectangle = new Rectangle({ x: 20, y: 30, width: 60, height: 40, backgroundColor: 'red'})
+    rectangle.draw(context)
     expect(canvas.toDataURL('image/png')).toMatchSnapshot()
   })
   it('should have a solid, dashed and dotted borders', () => {
-    drawRectangle(context, { x: 10, y: 5, width: 80, height: 25, borderStyle: 'solid' })
-    drawRectangle(context, { x: 10, y: 37, width: 80, height: 25, borderStyle: 'dashed' })
-    drawRectangle(context, { x: 10, y: 70, width: 80, height: 25, borderStyle: 'dotted' })
+    const solidRectangle = new Rectangle({ x: 10, y: 5, width: 80, height: 25, borderStyle: 'solid' })
+    const dashedRectangle = new Rectangle({ x: 10, y: 37, width: 80, height: 25, borderStyle: 'dashed' })
+    const dottedRectangle = new Rectangle({ x: 10, y: 70, width: 80, height: 25, borderStyle: 'dotted' })
+    solidRectangle.draw(context)
+    dashedRectangle.draw(context)
+    dottedRectangle.draw(context)
     expect(canvas.toDataURL('image/png')).toMatchSnapshot()
   })
   it('should have a green border', () => {
-    drawEllipse(context, { x: 20, y: 30, width: 60, height: 40, borderColor: 'green'})
+    const ellipse = new Ellipse({ x: 20, y: 30, width: 60, height: 40, borderColor: 'green'})
+    ellipse.draw(context)
     expect(canvas.toDataURL('image/png')).toMatchSnapshot()
   })
   it('should have a 10 pts width border', () => {
-    drawEllipse(context, { x: 20, y: 30, width: 60, height: 40, borderWidth: 10})
+    const ellipse = new Ellipse({ x: 20, y: 30, width: 60, height: 40, borderWidth: 10})
+    ellipse.draw(context)
     expect(canvas.toDataURL('image/png')).toMatchSnapshot()
   })
   it('should have a transparent opacity', () => {
-    drawRectangle(context, { x: 10, y: 10, width: 80, height: 60, backgroundColor: 'orange'})
-    drawDiamond(context, { x: 20, y: 30, width: 60, height: 60, backgroundColor: 'green', opacity: 0.5})
+    const rectangle = new Rectangle({ x: 10, y: 10, width: 80, height: 60, backgroundColor: 'orange'})
+    const diamond = new Diamond({ x: 20, y: 30, width: 60, height: 60, backgroundColor: 'green', opacity: 0.5})
+    rectangle.draw(context)
+    diamond.draw(context)
     expect(canvas.toDataURL('image/png')).toMatchSnapshot()
   })
 })

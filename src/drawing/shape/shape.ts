@@ -1,8 +1,5 @@
 export type ShapeToDraw = {
-  x: number
-  y: number
-  width: number
-  height: number
+  path: Path2D
   backgroundColor?: string | CanvasGradient
   borderStyle?: 'solid' | 'dashed' | 'dotted'
   borderColor?: string
@@ -13,50 +10,66 @@ export type ShapeToDraw = {
 const DEFAULT_OPACITY = 1
 const DEFAULT_BORDER_WIDTH = 4
 const DEFAULT_BORDER_COLOR = '#000'
+const DEFAULT_BORDER_STYLE = 'solid'
 const DASHED_EMPTY_FULL_RATIO = 2.4
 
-export const drawShape = (
-  context: CanvasRenderingContext2D,
-  path: (context: CanvasRenderingContext2D, args: ShapeToDraw) => void,
-  args: ShapeToDraw
-) => {
-  context.save()
+export default class Shape {
+  private path: Path2D
+  private backgroundColor: string | CanvasGradient | undefined
+  private borderStyle: 'solid' | 'dashed' | 'dotted'
+  private borderColor: string
+  private borderWidth: number
+  private opacity: number
 
-  path(context, args)
-
-  // Clip because stroke is centered
-  // so shape (border included)
-  // can overflow the given width and height
-  // if borderWidth > 1
-  context.clip()
-
-  context.globalAlpha = args.opacity ?? DEFAULT_OPACITY
-
-  if (args.backgroundColor) {
-    context.fillStyle = args.backgroundColor
-    context.fill()
+  constructor(args: ShapeToDraw) {
+    this.path = args.path
+    this.backgroundColor = args.backgroundColor
+    this.borderColor = args.borderColor ?? DEFAULT_BORDER_COLOR
+    this.borderStyle = args.borderStyle ?? DEFAULT_BORDER_STYLE
+    this.borderWidth = args.borderWidth ?? DEFAULT_BORDER_WIDTH
+    this.opacity = args.opacity ?? DEFAULT_OPACITY
   }
 
-  context.strokeStyle = args.borderColor ?? DEFAULT_BORDER_COLOR
+  draw(context: CanvasRenderingContext2D) {
+    context.save()
 
-  // Default stroke is centered and cannot be changed to inner
-  // so clip + multiplying by 2 do the job
-  context.lineWidth = (args.borderWidth ?? DEFAULT_BORDER_WIDTH) * 2
+    // Clip because stroke is centered
+    // so shape (border included)
+    // can overflow the given width and height
+    // if borderWidth > 1
+    context.clip(this.path)
 
-  switch(args.borderStyle){
-    case 'dashed':
-      context.setLineDash([context.lineWidth * DASHED_EMPTY_FULL_RATIO / 2, context.lineWidth])
-      break;
-    case 'dotted':
-      context.setLineDash([context.lineWidth / 2, context.lineWidth / 2])
-      break;
-    case 'solid':
-    default:
-      context.setLineDash([])
-      break;
+    context.globalAlpha = this.opacity
+
+    if (this.backgroundColor) {
+      context.fillStyle = this.backgroundColor
+      context.fill(this.path)
+    }
+
+    context.strokeStyle = this.borderColor
+
+    // Default stroke is centered and cannot be changed to inner
+    // so clip + multiplying by 2 do the job
+    context.lineWidth = this.borderWidth * 2
+
+    switch (this.borderStyle) {
+      case 'dashed':
+        context.setLineDash([
+          (context.lineWidth * DASHED_EMPTY_FULL_RATIO) / 2,
+          context.lineWidth,
+        ])
+        break
+      case 'dotted':
+        context.setLineDash([context.lineWidth / 2, context.lineWidth / 2])
+        break
+      case 'solid':
+      default:
+        context.setLineDash([])
+        break
+    }
+
+    context.stroke(this.path)
+
+    context.restore()
   }
-
-  context.stroke()
-
-  context.restore()
 }

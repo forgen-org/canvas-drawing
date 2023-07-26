@@ -1,12 +1,16 @@
-import { ShapeToDraw, drawShape } from './shape'
+import Shape, { ShapeToDraw } from './shape'
 
-export const drawEllipse = (
-  context: CanvasRenderingContext2D,
-  args: ShapeToDraw
-) => {
-  const path = (context: CanvasRenderingContext2D, args: ShapeToDraw) => {
-    context.beginPath()
-    context.ellipse(
+type EllipseToDraw = Omit<ShapeToDraw, 'path'> & {
+  x: number,
+  y: number,
+  width: number,
+  height: number
+}
+
+export default class Ellipse extends Shape {
+  constructor(args: EllipseToDraw) {
+    let path = new Path2D()
+    path.ellipse(
       (args.x + args.width / 2),
       (args.y + args.height / 2),
       args.width / 2,
@@ -15,6 +19,9 @@ export const drawEllipse = (
       0,
       2 * Math.PI
     )
+    super({...args, path })
   }
-  drawShape(context, path, args)
+  draw(context: CanvasRenderingContext2D): void {
+    super.draw(context) 
+  }
 }

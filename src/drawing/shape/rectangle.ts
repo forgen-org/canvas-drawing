@@ -1,12 +1,19 @@
-import { ShapeToDraw, drawShape } from './shape'
+import Shape, { ShapeToDraw } from './shape'
 
-export const drawRectangle = (
-  context: CanvasRenderingContext2D,
-  args: ShapeToDraw
-) => {
-  const path = (context: CanvasRenderingContext2D, args: ShapeToDraw) => {
-    context.beginPath()
-    context.rect(args.x, args.y, args.width, args.height)
+type RectangleToDraw = Omit<ShapeToDraw, 'path'> & {
+  x: number,
+  y: number,
+  width: number,
+  height: number
+}
+
+export default class Rectangle extends Shape {
+  constructor(args: RectangleToDraw) {
+    let path = new Path2D()
+    path.rect(args.x, args.y, args.width, args.height)
+    super({...args, path })
   }
-  drawShape(context, path, args)
+  draw(context: CanvasRenderingContext2D): void {
+    super.draw(context) 
+  }
 }

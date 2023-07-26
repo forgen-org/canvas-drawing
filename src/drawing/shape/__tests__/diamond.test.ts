@@ -1,4 +1,4 @@
-import { drawDiamond } from '../diamond'
+import Diamond from "../diamond"
 
 describe('[Diamond]', () => {
   let canvas: HTMLCanvasElement
@@ -10,15 +10,18 @@ describe('[Diamond]', () => {
     context = canvas.getContext('2d') as CanvasRenderingContext2D
   })
   it('should draw diamond on top left corner', () => {
-    drawDiamond(context, { x: 0, y: 0, width: 20, height: 20})
+    const diamond = new Diamond({ x: 0, y: 0, width: 20, height: 20})
+    diamond.draw(context)
     expect(canvas.toDataURL('image/png')).toMatchSnapshot()
   })
   it('should draw diamond on bottom right corner', () => {
-    drawDiamond(context, { x: 80, y: 80, width: 20, height: 20})
+    const diamond = new Diamond({ x: 80, y: 80, width: 20, height: 20})
+    diamond.draw(context)
     expect(canvas.toDataURL('image/png')).toMatchSnapshot()
   })
   it('should draw diamond in the middle', () => {
-    drawDiamond(context, { x: 30, y: 40, width: 40, height: 20})
+    const diamond = new Diamond({ x: 30, y: 40, width: 40, height: 20})
+    diamond.draw(context)
     expect(canvas.toDataURL('image/png')).toMatchSnapshot()
   })
 })
