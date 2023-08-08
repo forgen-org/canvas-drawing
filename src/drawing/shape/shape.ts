@@ -1,3 +1,5 @@
+import {setLineStyle} from "../line-style"
+
 export type ShapeToDraw = {
   path: Path2D
   backgroundColor?: string | CanvasGradient
@@ -11,9 +13,8 @@ const DEFAULT_OPACITY = 1
 const DEFAULT_BORDER_WIDTH = 4
 const DEFAULT_BORDER_COLOR = '#000'
 const DEFAULT_BORDER_STYLE = 'solid'
-const DASHED_EMPTY_FULL_RATIO = 2.4
 
-export default class Shape {
+export default abstract class Shape {
   private path: Path2D
   private backgroundColor: string | CanvasGradient | undefined
   private borderStyle: 'solid' | 'dashed' | 'dotted'
@@ -48,25 +49,16 @@ export default class Shape {
 
     context.strokeStyle = this.borderColor
 
+    // lineWidth first set to borderWidth 
+    // because setLineStyle use lineWidth to
+    // conpute dashes and dotted spaces
+    context.lineWidth = this.borderWidth
+    setLineStyle(context, this.borderStyle)
+
     // Default stroke is centered and cannot be changed to inner
     // so clip + multiplying by 2 do the job
     context.lineWidth = this.borderWidth * 2
 
-    switch (this.borderStyle) {
-      case 'dashed':
-        context.setLineDash([
-          (context.lineWidth * DASHED_EMPTY_FULL_RATIO) / 2,
-          context.lineWidth,
-        ])
-        break
-      case 'dotted':
-        context.setLineDash([context.lineWidth / 2, context.lineWidth / 2])
-        break
-      case 'solid':
-      default:
-        context.setLineDash([])
-        break
-    }
 
     context.stroke(this.path)
 
