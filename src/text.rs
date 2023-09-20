@@ -3,6 +3,44 @@ use wasm_bindgen::prelude::*;
 use web_sys::CanvasRenderingContext2d;
 
 #[wasm_bindgen]
+#[derive(Default)]
+pub enum FontStyle {
+    #[default]
+    Normal,
+    Italic,
+    Oblique,
+}
+
+#[wasm_bindgen]
+#[derive(Default)]
+pub enum FontWeight {
+    Light,
+    #[default]
+    Normal,
+    Bold,
+}
+
+impl std::string::ToString for FontStyle {
+    fn to_string(&self) -> String {
+        match self {
+            FontStyle::Normal => String::from("normal"),
+            FontStyle::Italic => String::from("italic"),
+            FontStyle::Oblique => String::from("oblique"),
+        }
+    }
+}
+
+impl std::string::ToString for FontWeight {
+    fn to_string(&self) -> String {
+        match self {
+            FontWeight::Normal => String::from("normal"),
+            FontWeight::Light => String::from("lighter"),
+            FontWeight::Bold => String::from("bold"),
+        }
+    }
+}
+
+#[wasm_bindgen]
 pub struct Text {
     value: String,
     start: Pos,
@@ -11,6 +49,8 @@ pub struct Text {
     font_family: String,
     line_height: f64,
     max_width: Option<f64>,
+    font_style: FontStyle,
+    font_weight: FontWeight,
     border_color: Option<String>,
 }
 
@@ -90,6 +130,16 @@ impl Text {
         self
     }
 
+    pub fn bold(mut self) -> Text {
+        self.font_weight = FontWeight::Bold;
+        self
+    }
+
+    pub fn italic(mut self) -> Text {
+        self.font_style = FontStyle::Italic;
+        self
+    }
+
     #[wasm_bindgen(js_name = fontSize)]
     pub fn font_size(mut self, size: f64) -> Text {
         self.font_size = size;
@@ -120,11 +170,23 @@ impl Text {
         self
     }
 
+    #[wasm_bindgen(js_name = fontStyle)]
+    pub fn font_style(mut self, style: FontStyle) -> Text {
+        self.font_style = style;
+        self
+    }
+
+    #[wasm_bindgen(js_name = fontWeight)]
+    pub fn font_weight(mut self, weight: FontWeight) -> Text {
+        self.font_weight = weight;
+        self
+    }
+
     pub fn draw(&self, context: CanvasRenderingContext2d) -> CanvasRenderingContext2d {
         context.save();
 
         let font =
-            self.font_size.to_string() + &String::from("px ") + &String::from(&self.font_family);
+            self.font_style.to_string() + &String::from(" ") + &self.font_weight.to_string() + &String::from(" ") + &self.font_size.to_string() + &String::from("px ") + &String::from(&self.font_family);
         context.set_font(&font);
 
         context.set_fill_style(&JsValue::from_str(&self.color));
@@ -169,6 +231,8 @@ impl Default for Text {
             font_family: String::from("Arial"),
             font_size: 18.0,
             line_height: 1.2,
+            font_style: FontStyle::default(),
+            font_weight: FontWeight::default(),
             border_color: None,
             max_width: None,
         }

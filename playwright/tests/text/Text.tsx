@@ -1,6 +1,6 @@
 import React from 'react'
 import Canvas from '../Canvas'
-import { line, text } from '../../../pkg/canvas_drawing'
+import { line, text, FontStyle, FontWeight } from '../../../pkg/canvas_drawing'
 
 export const DefaultText = () => {
   const draw = (context: CanvasRenderingContext2D) => {
@@ -51,6 +51,26 @@ export const TextWithMaxWidth = () => {
     line().from(100, 0).to(100, 200).color('red').draw(context)
     text('Hello world').start(0, 40).lineHeight(1.1).fontSize(32).maxWidth(100).draw(context)
     text('HellooOoOo woRld!').start(0, 120).lineHeight(1.1).fontSize(32).maxWidth(100).draw(context)
+  }
+  return <Canvas width={200} height={200} draw={draw} />
+}
+
+export const TextWithFontStyle = () => {
+  const draw = (context: CanvasRenderingContext2D) => {
+    text('Hello world').start(0, 40).fontSize(32).fontStyle(FontStyle.Normal).draw(context)
+    text('Hello world').start(0, 80).fontSize(32).fontStyle(FontStyle.Italic).draw(context)
+    text('Hello world').start(0, 120).fontSize(32).fontStyle(FontStyle.Oblique).draw(context)
+    text('Hello world').start(0, 160).fontSize(32).italic().draw(context)
+  }
+  return <Canvas width={200} height={200} draw={draw} />
+}
+
+export const TextWithFontWeight = () => {
+  const draw = (context: CanvasRenderingContext2D) => {
+    text('Hello world').start(0, 40).fontSize(32).fontWeight(FontWeight.Normal).draw(context)
+    text('Hello world').start(0, 80).fontSize(32).fontWeight(FontWeight.Light).draw(context)
+    text('Hello world').start(0, 120).fontSize(32).fontWeight(FontWeight.Bold).draw(context)
+    text('Hello world').start(0, 160).fontSize(32).bold().draw(context)
   }
   return <Canvas width={200} height={200} draw={draw} />
 }
