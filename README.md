@@ -62,6 +62,10 @@ function App() {
 | `borderColor`  | `string` |
 | `lineHeight`  | `number` | Ratio based on font-size. Default: 1.2.
 | `maxWidth`  | `number` | If given, text will be cropped and multi-lined automatically.
+| `lineWeight`  | `Normal | Bold | Light`
+| `bold`  | `` | Shortup for setting lineWeight to Bold
+| `lineStyle`  | `Normal | Italic | Oblique` | Italic vs Oblic : Italic is described in the font declaration. Oblique is a browser text slant.
+| `italic`  | `` | Shortup for setting lineStyle to Italic
 
 ```javascript
     text("This is an auto cropped text based on the maxWidth property")
