@@ -60,6 +60,20 @@ function App() {
 | `fontFamily`  | `string` |
 | `color`  | `string` | A string parsed as [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_colors) color or a [CanvasGradient](https://developer.mozilla.org/en-US/docs/Web/API/CanvasGradient) object |
 | `borderColor`  | `string` |
+| `lineHeight`  | `number` | Ratio based on font-size. Default: 1.2.
+| `maxWidth`  | `number` | If given, text will be cropped and multi-lined automatically.
+
+```javascript
+    text("This is an auto cropped text based on the maxWidth property")
+      .start(0, 40)
+      .color('#FFF')
+      .fontSize(18)
+      .maxWidth(200)
+      .fontFamily("Arial")
+      .draw(context)
+    line().from(200,0).to(200,100).width(2).color('red').draw(context)
+```
+![Screenshot](./screenshot/text.png)
 
 ## line
 

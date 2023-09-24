@@ -2,7 +2,7 @@ node_modules
 target
 dist
 pkg
-/playwright/report
+/playwright/reports
 /playwright/.cache
 /playwright/playwright/.cache
-/playwright/result
+/playwright/results
