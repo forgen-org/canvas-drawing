@@ -84,3 +84,13 @@ export const TextWithUnderline = () => {
   }
   return <Canvas width={200} height={200} draw={draw} />
 }
+
+export const TextWithStrikethrough = () => {
+  const draw = (context: CanvasRenderingContext2D) => {
+    text('Hello world').start(0, 20).fontSize(14).strikethrough().draw(context)
+    text('Hello world').start(0, 60).fontSize(30).strikethrough().draw(context)
+    text('Hello world').start(0, 120).fontSize(44).strikethrough().draw(context)
+    text('Hello world').start(0, 180).fontSize(70).color('red').strikethrough().draw(context)
+  }
+  return <Canvas width={200} height={200} draw={draw} />
+}

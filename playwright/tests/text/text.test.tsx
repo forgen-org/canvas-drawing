@@ -1,6 +1,6 @@
 import React from 'react'
 import { test, expect } from '@playwright/experimental-ct-react'
-import {DefaultText, TextWithBorderColor, TextWithColor, TextWithFontFamily, TextWithFontSize, TextWithFontStyle, TextWithFontWeight, TextWithLineHeight, TextWithMaxWidth, TextWithUnderline} from './Text'
+import {DefaultText, TextWithBorderColor, TextWithColor, TextWithFontFamily, TextWithFontSize, TextWithFontStyle, TextWithFontWeight, TextWithLineHeight, TextWithMaxWidth, TextWithStrikethrough, TextWithUnderline} from './Text'
 
 test('Default text', async ({ mount }) => {
   const component = await mount(<DefaultText />)
@@ -49,5 +49,10 @@ test('Text with font-weight', async ({ mount }) => {
 
 test('Text with underline', async ({ mount }) => {
   const component = await mount(<TextWithUnderline />)
+  await expect(component).toHaveScreenshot()
+})
+
+test.only('Text with strikethrough', async ({ mount }) => {
+  const component = await mount(<TextWithStrikethrough />)
   await expect(component).toHaveScreenshot()
 })

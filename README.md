@@ -67,6 +67,7 @@ function App() {
 | `lineStyle`  | `LineStyle` | `Normal`, `Italic`, `Oblique`. Italic vs Oblic : Italic is described in the font declaration. Oblique is a browser text slant.
 | `italic`  |  | Shortup for setting lineStyle to Italic
 | `underline`  | `bool` | undefined | no args (undefined) is a shortcup for `true`
+| `strikethrough`  | `bool` | undefined | no args (undefined) is a shortcup for `true`
 
 ```javascript
     text("This is an auto cropped text based on the maxWidth property")

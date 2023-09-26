@@ -53,11 +53,11 @@ pub struct Text {
     font_weight: FontWeight,
     border_color: Option<String>,
     underline: bool,
+    strikethrough: bool,
 }
 
 impl Text {
     fn crop(text: &Text, ctx: &CanvasRenderingContext2d) -> Vec<String> {
-        web_sys::console::log_1(&JsValue::from(text.max_width));
         match text.max_width {
             None => vec![text.value.clone()],
             Some(max_width) => {
@@ -85,7 +85,6 @@ impl Text {
                     else {
                         let mut cropped = String::from("");
                         for char in to_concat.chars() {
-                            web_sys::console::log_1(&JsValue::from(char.to_string()));
                             let current_line = lines.last().unwrap();
                             let current_line_width =
                                 ctx.measure_text(current_line).unwrap().width();
@@ -150,6 +149,14 @@ impl Text {
         self
     }
 
+    pub fn strikethrough(mut self, value: Option<bool>) -> Text {
+        self.strikethrough = match value {
+            Some(value) => value,
+            None => true,
+        };
+        self
+    }
+
     #[wasm_bindgen(js_name = fontSize)]
     pub fn font_size(mut self, size: f64) -> Text {
         self.font_size = size;
@@ -207,7 +214,6 @@ impl Text {
         context.set_fill_style(&JsValue::from_str(&self.color));
 
         let lines = Text::crop(self, &context);
-        web_sys::console::log_1(&JsValue::from(lines.len()));
 
         for (index, line) in lines.iter().enumerate() {
             let line_x = self.start.x.into();
@@ -231,6 +237,28 @@ impl Text {
                 context = crate::line::line()
                     .from(line_x, line_y + 2.0 + line_height / 2.0)
                     .to(line_x + width, line_y + 2.0 + line_height / 2.0)
+                    .color(self.color.clone())
+                    .width(line_height)
+                    .draw(context);
+            }
+            if self.strikethrough {
+                let line_height = if self.font_size >= 64.0 {
+                    6.0
+                } else if self.font_size >= 48.0 {
+                    5.0
+                } else if self.font_size >= 32.0 {
+                    4.0
+                } else if self.font_size >= 16.0 {
+                    3.0
+                } else if self.font_size >= 8.0 {
+                    2.0
+                } else {
+                    1.0
+                };
+                let width = context.measure_text(line).unwrap().width();
+                context = crate::line::line()
+                    .from(line_x, line_y - (self.font_size / 3.0))
+                    .to(line_x + width, line_y - (self.font_size / 3.0))
                     .color(self.color.clone())
                     .width(line_height)
                     .draw(context);
@@ -269,6 +297,7 @@ impl Default for Text {
             border_color: None,
             max_width: None,
             underline: false,
+            strikethrough: false,
         }
     }
 }
