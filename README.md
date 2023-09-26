@@ -62,11 +62,11 @@ function App() {
 | `borderColor`  | `string` |
 | `lineHeight`  | `number` | Ratio based on font-size. Default: 1.2.
 | `maxWidth`  | `number` | If given, text will be cropped and multi-lined automatically.
-| `lineWeight`  | `Normal | Bold | Light`
-| `bold`  | `` | Shortup for setting lineWeight to Bold
-| `lineStyle`  | `Normal | Italic | Oblique` | Italic vs Oblic : Italic is described in the font declaration. Oblique is a browser text slant.
-| `italic`  | `` | Shortup for setting lineStyle to Italic
-| `underline`  | `bool | undefined` | no args (undefined) is a shortcup for `true`
+| `lineWeight`  | `LineWeight` | `Normal`, `Light`, `Bold`
+| `bold`  |  | Shortup for setting lineWeight to Bold
+| `lineStyle`  | `LineStyle` | `Normal`, `Italic`, `Oblique`. Italic vs Oblic : Italic is described in the font declaration. Oblique is a browser text slant.
+| `italic`  |  | Shortup for setting lineStyle to Italic
+| `underline`  | `bool` | undefined | no args (undefined) is a shortcup for `true`
 
 ```javascript
     text("This is an auto cropped text based on the maxWidth property")
@@ -118,7 +118,7 @@ function App() {
 | `height`  | `number` | Total height of the rectangle, borders included |
 | `opacity`  | `number` | Between 0 and 1. Default: 1 |
 | `backgroundColor`  | `string` | A string parsed as [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_colors) color or a [CanvasGradient](https://developer.mozilla.org/en-US/docs/Web/API/CanvasGradient) object |
-| `borderStyle`  | LineStyle | Default: LineStyle.SOLID |
+| `borderStyle`  | `LineStyle` | Default: LineStyle.SOLID |
 | `borderColor`  | `string` | A string parsed as [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_colors) color or a [CanvasGradient](https://developer.mozilla.org/en-US/docs/Web/API/CanvasGradient) object |
 | `borderWidth`  | `number` | Default: 4 |
 
