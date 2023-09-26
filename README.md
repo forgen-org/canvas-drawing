@@ -62,9 +62,9 @@ function App() {
 | `borderColor`  | `string` |
 | `lineHeight`  | `number` | Ratio based on font-size. Default: 1.2.
 | `maxWidth`  | `number` | If given, text will be cropped and multi-lined automatically.
-| `lineWeight`  | `LineWeight` | `Normal`, `Light`, `Bold`
+| `fontWeight`  | `FontWeight` | `Normal`, `Light`, `Bold`
 | `bold`  |  | Shortup for setting lineWeight to Bold
-| `lineStyle`  | `LineStyle` | `Normal`, `Italic`, `Oblique`. Italic vs Oblic : Italic is described in the font declaration. Oblique is a browser text slant.
+| `fontStyle`  | `FontStyle` | `Normal`, `Italic`, `Oblique`. Italic vs Oblic : Italic is described in the font declaration. Oblique is a browser text slant.
 | `italic`  |  | Shortup for setting lineStyle to Italic
 | `underline`  | `bool` | undefined | no args (undefined) is a shortcup for `true`
 | `strikethrough`  | `bool` | undefined | no args (undefined) is a shortcup for `true`
