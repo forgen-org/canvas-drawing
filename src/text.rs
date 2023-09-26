@@ -52,6 +52,7 @@ pub struct Text {
     font_style: FontStyle,
     font_weight: FontWeight,
     border_color: Option<String>,
+    underline: bool,
 }
 
 impl Text {
@@ -86,7 +87,8 @@ impl Text {
                         for char in to_concat.chars() {
                             web_sys::console::log_1(&JsValue::from(char.to_string()));
                             let current_line = lines.last().unwrap();
-                            let current_line_width = ctx.measure_text(current_line).unwrap().width();
+                            let current_line_width =
+                                ctx.measure_text(current_line).unwrap().width();
                             if current_line_width
                                 + ctx
                                     .measure_text((cropped.clone() + &char.to_string()).as_str())
@@ -106,7 +108,7 @@ impl Text {
                         let current_line_index = &lines.len() - 1;
                         lines[current_line_index] = current_line.clone() + &cropped;
                     }
-                };
+                }
                 lines
             }
         }
@@ -137,6 +139,14 @@ impl Text {
 
     pub fn italic(mut self) -> Text {
         self.font_style = FontStyle::Italic;
+        self
+    }
+
+    pub fn underline(mut self, value: Option<bool>) -> Text {
+        self.underline = match value {
+            Some(value) => value,
+            None => true,
+        };
         self
     }
 
@@ -182,11 +192,16 @@ impl Text {
         self
     }
 
-    pub fn draw(&self, context: CanvasRenderingContext2d) -> CanvasRenderingContext2d {
+    pub fn draw(&self, mut context: CanvasRenderingContext2d) -> CanvasRenderingContext2d {
         context.save();
 
-        let font =
-            self.font_style.to_string() + &String::from(" ") + &self.font_weight.to_string() + &String::from(" ") + &self.font_size.to_string() + &String::from("px ") + &String::from(&self.font_family);
+        let font = self.font_style.to_string()
+            + &String::from(" ")
+            + &self.font_weight.to_string()
+            + &String::from(" ")
+            + &self.font_size.to_string()
+            + &String::from("px ")
+            + &String::from(&self.font_family);
         context.set_font(&font);
 
         context.set_fill_style(&JsValue::from_str(&self.color));
@@ -195,13 +210,31 @@ impl Text {
         web_sys::console::log_1(&JsValue::from(lines.len()));
 
         for (index, line) in lines.iter().enumerate() {
-            context
-                .fill_text(
-                    line,
-                    self.start.x.into(),
-                    self.start.y + index as f64 * self.line_height * self.font_size,
-                )
-                .unwrap();
+            let line_x = self.start.x.into();
+            let line_y = self.start.y + index as f64 * self.line_height * self.font_size;
+            context.fill_text(line, line_x, line_y).unwrap();
+            if self.underline {
+                let line_height = if self.font_size >= 64.0 {
+                    6.0
+                } else if self.font_size >= 48.0 {
+                    5.0
+                } else if self.font_size >= 32.0 {
+                    4.0
+                } else if self.font_size >= 16.0 {
+                    3.0
+                } else if self.font_size >= 8.0 {
+                    2.0
+                } else {
+                    1.0
+                };
+                let width = context.measure_text(line).unwrap().width();
+                context = crate::line::line()
+                    .from(line_x, line_y + 2.0 + line_height / 2.0)
+                    .to(line_x + width, line_y + 2.0 + line_height / 2.0)
+                    .color(self.color.clone())
+                    .width(line_height)
+                    .draw(context);
+            }
             match &self.border_color {
                 Some(color) => {
                     context.set_stroke_style(&JsValue::from(color));
@@ -235,6 +268,7 @@ impl Default for Text {
             font_weight: FontWeight::default(),
             border_color: None,
             max_width: None,
+            underline: false,
         }
     }
 }

@@ -74,3 +74,13 @@ export const TextWithFontWeight = () => {
   }
   return <Canvas width={200} height={200} draw={draw} />
 }
+
+export const TextWithUnderline = () => {
+  const draw = (context: CanvasRenderingContext2D) => {
+    text('Hello world').start(0, 20).fontSize(14).underline().draw(context)
+    text('Hello world').start(0, 60).fontSize(30).underline().draw(context)
+    text('Hello world').start(0, 120).fontSize(44).underline().draw(context)
+    text('Hello world').start(0, 180).fontSize(70).color('red').underline().draw(context)
+  }
+  return <Canvas width={200} height={200} draw={draw} />
+}
