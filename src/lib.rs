@@ -6,6 +6,7 @@ mod text;
 mod line;
 mod arrow;
 mod shape;
+mod color;
 
 #[wasm_bindgen]
 extern "C" {
