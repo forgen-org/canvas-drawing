@@ -7,6 +7,7 @@ mod line;
 mod arrow;
 mod shape;
 mod color;
+mod postit;
 
 #[wasm_bindgen]
 extern "C" {

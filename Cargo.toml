@@ -29,6 +29,7 @@ features = [
   "Element",
   "HtmlCanvasElement",
   "CanvasRenderingContext2d",
+  "CanvasGradient",
   "TextMetrics",
   "Path2d",
   "console"

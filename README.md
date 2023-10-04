@@ -41,6 +41,14 @@ function App() {
       )
       .draw(context)
 
+    postit(260, 10).draw(context)
+    text("@TODO star repo")
+      .start(270, 50)
+      .fontFamily("Kalam")
+      .bold().color("#333")
+      .maxWidth(80)
+      .draw(context)
+
   }, [])
   return (
     <canvas ref={canvasRef} />
@@ -48,7 +56,7 @@ function App() {
 
 }
 ```
-![Screenshot](./screenshot/example.jpg)
+![Screenshot](./screenshot/example.png)
 
 ## text
 
@@ -123,6 +131,16 @@ function App() {
 | `borderColor`  | `string` | A string parsed as [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_colors) color or a [CanvasGradient](https://developer.mozilla.org/en-US/docs/Web/API/CanvasGradient) object |
 | `borderWidth`  | `number` | Default: 4 |
 
+## postit
+
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `width`   | `number` | width of the postit (shadow excluded) |
+| `height`   | `number` | height of the postit (shadow excluded) |
+| `x`   | `number` | x coordinate |
+| `y`   | `number` | y coordinate |
+| `angle`   | `number` | rotate angle in degrees (default : 3) |
+| `color`  | `string` | A string parsed as [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_colors) color or a [CanvasGradient](https://developer.mozilla.org/en-US/docs/Web/API/CanvasGradient) object |
 
 
 
