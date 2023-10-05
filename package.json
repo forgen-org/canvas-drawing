@@ -1,7 +1,7 @@
 {
-  "name": "@forgen-org/canvas-drawing",
+  "name": "@forgen/canvas-drawing",
   "version": "1.0.0",
-  "description": "A bunch of Javascript functions based on Rust (wasm), fluent API oriented, with css like properties that make canvas drawing easier",
+  "description": "A bunch of Javascript functions powered by Wasm & Rust, fluent API oriented, with css like properties that make canvas drawing easier",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {

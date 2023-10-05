@@ -7,6 +7,15 @@
  - 🎨 Css-like properties names
  - 📖 and TS types included
 
+## Installation
+```
+npm i -S @forgen/canvas-drawing
+```
+or
+```
+yarn add @forgen/canvas-drawing
+```
+
 ## Example with React
 ```javascript
 import { arrow, line, arrowHead, LineStyle, ellipse, diamond, text, LineCap } from 'canvas-drawing'
