@@ -1,13 +1,17 @@
 use wasm_bindgen::prelude::*;
 
-//mod canvas;
-mod pos;
-mod text;
-mod line;
-mod arrow;
-mod shape;
-mod color;
-mod postit;
+mod shared {
+    pub mod pos;
+    pub mod color;
+}
+
+mod components {
+    pub mod text;
+    pub mod line;
+    pub mod arrow;
+    pub mod shape;
+    pub mod postit;
+}
 
 #[wasm_bindgen]
 extern "C" {

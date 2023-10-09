@@ -1,4 +1,4 @@
-use crate::pos::*;
+use crate::shared::pos::*;
 use wasm_bindgen::prelude::*;
 use web_sys::CanvasRenderingContext2d;
 
@@ -99,7 +99,7 @@ impl Postit {
             x + self.width,
             y + self.height,
         );
-        let c1 = crate::color::Color::from_hexa(&self.color).unwrap();
+        let c1 = crate::shared::color::Color::from_hexa(&self.color).unwrap();
         let c2 = c1.get_darker_color(0.1);
         let c3 = c1.get_lighter_color(0.1);
         gradient.add_color_stop(0.0, &c2.to_hexa()).unwrap();

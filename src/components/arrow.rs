@@ -1,8 +1,8 @@
 use wasm_bindgen::prelude::*;
 use web_sys::CanvasRenderingContext2d;
 
-use crate::line::Line;
-use crate::pos::Pos;
+use crate::components::line::Line;
+use crate::shared::pos::Pos;
 
 #[wasm_bindgen]
 pub struct ArrowHead {

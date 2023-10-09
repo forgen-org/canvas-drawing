@@ -1,6 +1,6 @@
 use wasm_bindgen::prelude::*;
 use web_sys::CanvasRenderingContext2d;
-use crate::pos::*;
+use crate::shared::pos::*;
 
 #[wasm_bindgen]
 #[derive(Default)]

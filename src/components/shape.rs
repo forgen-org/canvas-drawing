@@ -1,6 +1,6 @@
-use crate::line::Line;
-use crate::line::LineStyle;
-use crate::pos::*;
+use crate::components::line::Line;
+use crate::components::line::LineStyle;
+use crate::shared::pos::*;
 use wasm_bindgen::prelude::*;
 use web_sys::CanvasRenderingContext2d;
 use web_sys::Path2d;

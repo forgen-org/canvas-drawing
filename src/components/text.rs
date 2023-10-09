@@ -1,4 +1,4 @@
-use crate::pos::*;
+use crate::shared::pos::*;
 use wasm_bindgen::prelude::*;
 use web_sys::CanvasRenderingContext2d;
 
@@ -234,7 +234,7 @@ impl Text {
                     1.0
                 };
                 let width = context.measure_text(line).unwrap().width();
-                context = crate::line::line()
+                context = crate::components::line::line()
                     .from(line_x, line_y + 2.0 + line_height / 2.0)
                     .to(line_x + width, line_y + 2.0 + line_height / 2.0)
                     .color(self.color.clone())
@@ -256,7 +256,7 @@ impl Text {
                     1.0
                 };
                 let width = context.measure_text(line).unwrap().width();
-                context = crate::line::line()
+                context = crate::components::line::line()
                     .from(line_x, line_y - (self.font_size / 3.0))
                     .to(line_x + width, line_y - (self.font_size / 3.0))
                     .color(self.color.clone())
