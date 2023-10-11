@@ -13,6 +13,11 @@ mod components {
     pub mod postit;
 }
 
+mod backgrounds {
+    pub mod shapy_moves;
+}
+
+
 #[wasm_bindgen]
 extern "C" {
     fn alert(s: &str);

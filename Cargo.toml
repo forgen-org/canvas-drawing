@@ -20,6 +20,9 @@ wasm-bindgen = "0.2.84"
 console_error_panic_hook = { version = "0.1.7", optional = true }
 derive_builder = "0.12.0"
 js-sys = "0.3.64"
+rand = "0.8.5"
+getrandom = { version = "0.2", features = ["js"] }
+lazy_static = "1.4.0"
 
 [dependencies.web-sys]
 version = "0.3.64"
@@ -32,7 +35,8 @@ features = [
   "CanvasGradient",
   "TextMetrics",
   "Path2d",
-  "console"
+  "console",
+  "MouseEvent"
 ]
 
 [dev-dependencies]
