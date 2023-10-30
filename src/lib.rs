@@ -11,11 +11,19 @@ mod components {
     pub mod arrow;
     pub mod shape;
     pub mod postit;
+    pub mod round_rect;
 }
 
+/*
 mod backgrounds {
     pub mod shapy_moves;
+    mod shapes {
+        pub mod shape;
+        pub mod round_rect;
+    }
+
 }
+*/
 
 
 #[wasm_bindgen]
