@@ -11,6 +11,7 @@ mod components {
     pub mod arrow;
     pub mod shape;
     pub mod postit;
+    pub mod round_rect;
 }
 
 #[wasm_bindgen]
