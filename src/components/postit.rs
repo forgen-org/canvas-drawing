@@ -71,10 +71,7 @@ impl Postit {
             x + self.width * 0.97,
             y + 0.7875 * self.height,
         );
-        context.line_to(
-            x + self.width * 0.83,
-            y + self.height * 0.9625,
-        );
+        context.line_to(x + self.width * 0.83, y + self.height * 0.9625);
         context.bezier_curve_to(
             x + self.width * 0.8,
             y + self.height * 1.0,
@@ -93,12 +90,7 @@ impl Postit {
             y + self.height * 0.18,
         );
         context.close_path();
-        let gradient = context.create_linear_gradient(
-            x,
-            y,
-            x + self.width,
-            y + self.height,
-        );
+        let gradient = context.create_linear_gradient(x, y, x + self.width, y + self.height);
         let c1 = crate::shared::color::Color::from_hexa(&self.color).unwrap();
         let c2 = c1.get_darker_color(0.1);
         let c3 = c1.get_lighter_color(0.1);
@@ -113,10 +105,7 @@ impl Postit {
         context.set_shadow_color("rgba(0,0,0,0)");
         context.begin_path();
         context.set_line_width(1.0);
-        context.move_to(
-            x + 0.77 * self.width,
-            y + self.height * 1.0,
-        );
+        context.move_to(x + 0.77 * self.width, y + self.height * 1.0);
         context.bezier_curve_to(
             x + self.width * 0.8,
             y + self.height * 1.0,
@@ -152,12 +141,7 @@ impl Postit {
             y + self.height * 1.0,
         );
         context.close_path();
-        let gradient = context.create_linear_gradient(
-            x + self.width,
-            y + self.height,
-            x,
-            y,
-        );
+        let gradient = context.create_linear_gradient(x + self.width, y + self.height, x, y);
         let c5 = c1.get_darker_color(0.2);
         let c6 = c1.get_darker_color(0.6);
         gradient.add_color_stop(0.0, &c6.to_hexa()).unwrap();

@@ -1,6 +1,6 @@
+use crate::shared::pos::*;
 use wasm_bindgen::prelude::*;
 use web_sys::CanvasRenderingContext2d;
-use crate::shared::pos::*;
 
 #[wasm_bindgen]
 #[derive(Default)]
@@ -29,7 +29,6 @@ impl std::string::ToString for LineCap {
         }
     }
 }
-
 
 #[wasm_bindgen]
 pub struct Line {
@@ -148,21 +147,24 @@ impl Line {
     pub fn set_line_style(context: &CanvasRenderingContext2d, line_style: &LineStyle) {
         match line_style {
             LineStyle::Solid => {
-                context.set_line_dash(&js_sys::Array::new());
+                context.set_line_dash(&js_sys::Array::new()).unwrap();
             }
             LineStyle::Dashed => {
-                context.set_line_dash(&js_sys::Float64Array::from(
-                    [2.4 * context.line_width(), context.line_width()].as_ref(),
-                ));
+                context
+                    .set_line_dash(&js_sys::Float64Array::from(
+                        [2.4 * context.line_width(), context.line_width()].as_ref(),
+                    ))
+                    .unwrap();
             }
             LineStyle::Dotted => {
-                context.set_line_dash(&js_sys::Float64Array::from(
-                    [context.line_width(), context.line_width()].as_ref(),
-                ));
+                context
+                    .set_line_dash(&js_sys::Float64Array::from(
+                        [context.line_width(), context.line_width()].as_ref(),
+                    ))
+                    .unwrap();
             }
         }
     }
-
 }
 
 impl Default for Line {

@@ -1,5 +1,4 @@
-use std::error::Error;
-use std::fmt::{self, format};
+use std::fmt::{self};
 
 #[derive(Debug)]
 pub struct Color {
@@ -27,6 +26,7 @@ impl fmt::Display for ColorCreationError {
     }
 }
 
+#[allow(dead_code)]
 impl Color {
     pub fn from_rgb(red: u8, green: u8, blue: u8) -> Color {
         Color { red, green, blue }
