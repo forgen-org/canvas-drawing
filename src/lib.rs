@@ -1,17 +1,17 @@
 use wasm_bindgen::prelude::*;
 
 mod shared {
-    pub mod pos;
     pub mod color;
+    pub mod pos;
 }
 
 mod components {
-    pub mod text;
-    pub mod line;
     pub mod arrow;
-    pub mod shape;
+    pub mod line;
     pub mod postit;
     pub mod round_rect;
+    pub mod shape;
+    pub mod text;
 }
 
 #[wasm_bindgen]

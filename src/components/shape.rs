@@ -97,7 +97,8 @@ impl Shape {
                     std::f64::consts::PI,
                     0.0,
                     2.0 * std::f64::consts::PI,
-                ).unwrap();
+                )
+                .unwrap();
                 path
             }
             ShapeType::Diamond => {
