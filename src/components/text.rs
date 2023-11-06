@@ -66,7 +66,7 @@ impl Text {
                 for word in words {
                     let current_line = lines.last().unwrap();
                     let current_line_width = ctx.measure_text(current_line).unwrap().width();
-                    let to_concat = if current_line.len() == 0 {
+                    let to_concat = if current_line.is_empty() {
                         word.to_string()
                     } else {
                         " ".to_string() + word
@@ -142,18 +142,12 @@ impl Text {
     }
 
     pub fn underline(mut self, value: Option<bool>) -> Text {
-        self.underline = match value {
-            Some(value) => value,
-            None => true,
-        };
+        self.underline = value.unwrap_or(true);
         self
     }
 
     pub fn strikethrough(mut self, value: Option<bool>) -> Text {
-        self.strikethrough = match value {
-            Some(value) => value,
-            None => true,
-        };
+        self.strikethrough = value.unwrap_or(true);
         self
     }
 
@@ -216,7 +210,7 @@ impl Text {
         let lines = Text::crop(self, &context);
 
         for (index, line) in lines.iter().enumerate() {
-            let line_x = self.start.x.into();
+            let line_x = self.start.x;
             let line_y = self.start.y + index as f64 * self.line_height * self.font_size;
             context.fill_text(line, line_x, line_y).unwrap();
             if self.underline {
@@ -269,7 +263,7 @@ impl Text {
                     context
                         .stroke_text(
                             line,
-                            self.start.x.into(),
+                            self.start.x,
                             self.start.y + index as f64 * self.line_height * self.font_size,
                         )
                         .unwrap();

@@ -92,34 +92,22 @@ impl Line {
         context.begin_path();
 
         context.set_line_cap(&self.cap.to_string());
-        context.set_line_width(self.width.into());
+        context.set_line_width(self.width);
         context.set_stroke_style(&JsValue::from(&self.color));
         Line::set_line_style(&context, &self.style);
 
-        context.move_to(self.from.x.into(), self.from.y.into());
+        context.move_to(self.from.x, self.from.y);
 
         match &self.quadratic_curve {
             Some(cp) => {
-                context.quadratic_curve_to(
-                    cp.x.into(),
-                    cp.y.into(),
-                    self.to.x.into(),
-                    self.to.y.into(),
-                );
+                context.quadratic_curve_to(cp.x, cp.y, self.to.x, self.to.y);
             }
             None => match &self.bezier_curve {
                 Some(cp) => {
-                    context.bezier_curve_to(
-                        cp.0.x.into(),
-                        cp.0.y.into(),
-                        cp.1.x.into(),
-                        cp.1.y.into(),
-                        self.to.x.into(),
-                        self.to.y.into(),
-                    );
+                    context.bezier_curve_to(cp.0.x, cp.0.y, cp.1.x, cp.1.y, self.to.x, self.to.y);
                 }
                 None => {
-                    context.line_to(self.to.x.into(), self.to.y.into());
+                    context.line_to(self.to.x, self.to.y);
                 }
             },
         }

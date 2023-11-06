@@ -32,26 +32,27 @@ impl Color {
         Color { red, green, blue }
     }
     pub fn from_hexa(hexa: &str) -> Result<Color, ColorCreationError> {
-        if !hexa.starts_with("#") {
+        if !hexa.starts_with('#') {
             return Err(ColorCreationError::BadFormat);
         }
 
         let length = hexa.len();
 
         if length != 4 && length != 7 {
+            #[allow(dead_code)]
             return Err(ColorCreationError::BadFormat);
         }
 
         let colors: (String, String, String) = match length {
             4 => (
-                hexa.clone()[1..2].to_string() + &hexa[1..2],
-                hexa.clone()[2..3].to_string() + &hexa[2..3],
-                hexa.clone()[3..4].to_string() + &hexa[3..4],
+                hexa[1..2].to_string() + &hexa[1..2],
+                hexa[2..3].to_string() + &hexa[2..3],
+                hexa[3..4].to_string() + &hexa[3..4],
             ),
             7 => (
-                hexa.clone()[1..3].to_string(),
-                hexa.clone()[3..5].to_string(),
-                hexa.clone()[5..7].to_string(),
+                hexa[1..3].to_string(),
+                hexa[3..5].to_string(),
+                hexa[5..7].to_string(),
             ),
             _ => ("00".to_string(), "00".to_string(), "00".to_string()),
         };
@@ -68,19 +69,19 @@ impl Color {
         let red = if red.len() > 1 {
             red
         } else {
-            String::from('0') + &red.clone()
+            String::from('0') + &red
         };
         let green = format!("{:X}", self.green);
         let green = if green.len() > 1 {
             green
         } else {
-            String::from('0') + &green.clone()
+            String::from('0') + &green
         };
         let blue = format!("{:X}", self.blue);
         let blue = if blue.len() > 1 {
             blue
         } else {
-            String::from('0') + &blue.clone()
+            String::from('0') + &blue
         };
         format!("#{}{}{}", red, green, blue)
     }
@@ -88,15 +89,15 @@ impl Color {
         Color {
             red: std::cmp::min(
                 self.red as u32 + (self.red as f32 * percent).round() as u32,
-                255 as u32,
+                255_u32,
             ) as u8,
             green: std::cmp::min(
                 self.green as u32 + (self.green as f32 * percent).round() as u32,
-                255 as u32,
+                255_u32,
             ) as u8,
             blue: std::cmp::min(
                 self.blue as u32 + (self.blue as f32 * percent).round() as u32,
-                255 as u32,
+                255_u32,
             ) as u8,
         }
     }
@@ -104,15 +105,15 @@ impl Color {
         Color {
             red: std::cmp::max(
                 self.red as u32 - (self.red as f32 * percent).round() as u32,
-                0 as u32,
+                0_u32,
             ) as u8,
             green: std::cmp::max(
                 self.green as u32 - (self.green as f32 * percent).round() as u32,
-                0 as u32,
+                0_u32,
             ) as u8,
             blue: std::cmp::max(
                 self.blue as u32 - (self.blue as f32 * percent).round() as u32,
-                0 as u32,
+                0_u32,
             ) as u8,
         }
     }
