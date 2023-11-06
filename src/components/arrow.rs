@@ -47,20 +47,20 @@ impl ArrowHead {
 
         ctx.set_stroke_style(&JsValue::from(&self.color));
 
-        ctx.set_line_width(self.width.into());
+        ctx.set_line_width(self.width);
         ctx.set_line_cap("round");
         ctx.begin_path();
 
         ctx.move_to(
-            pos.x as f64 - (self.size as f64 * (angle - std::f64::consts::PI / 6.0).cos()),
-            pos.y as f64 - (self.size as f64 * (angle - std::f64::consts::PI / 6.0).sin()),
+            pos.x - (self.size * (angle - std::f64::consts::PI / 6.0).cos()),
+            pos.y - (self.size * (angle - std::f64::consts::PI / 6.0).sin()),
         );
 
-        ctx.line_to(pos.x.into(), pos.y.into());
+        ctx.line_to(pos.x, pos.y);
 
         ctx.line_to(
-            pos.x as f64 - (self.size as f64 * (angle + std::f64::consts::PI / 6.0).cos()),
-            pos.y as f64 - (self.size as f64 * (angle + std::f64::consts::PI / 6.0).sin()),
+            pos.x - (self.size * (angle + std::f64::consts::PI / 6.0).cos()),
+            pos.y - (self.size * (angle + std::f64::consts::PI / 6.0).sin()),
         );
 
         ctx.stroke();
@@ -71,6 +71,7 @@ impl ArrowHead {
 }
 
 #[wasm_bindgen]
+#[derive(Default)]
 pub struct Arrow {
     body: Line,
     head: ArrowHead,
@@ -93,13 +94,11 @@ impl Arrow {
         let context = self.body.draw(context);
 
         let angle = match &self.body.get_quadratic_curve() {
-            Some(cp) => (self.body.get_to().y as f64 - cp.y as f64)
-                .atan2(self.body.get_to().x as f64 - cp.x as f64),
+            Some(cp) => (self.body.get_to().y - cp.y).atan2(self.body.get_to().x - cp.x),
             None => match &self.body.get_bezier_curve() {
-                Some(cp) => (self.body.get_to().y as f64 - cp.1.y as f64)
-                    .atan2(self.body.get_to().x as f64 - cp.1.x as f64),
-                None => (self.body.get_to().y as f64 - self.body.get_from().y as f64)
-                    .atan2(self.body.get_to().x as f64 - self.body.get_from().x as f64),
+                Some(cp) => (self.body.get_to().y - cp.1.y).atan2(self.body.get_to().x - cp.1.x),
+                None => (self.body.get_to().y - self.body.get_from().y)
+                    .atan2(self.body.get_to().x - self.body.get_from().x),
             },
         };
 
@@ -108,15 +107,6 @@ impl Arrow {
         context.restore();
 
         context
-    }
-}
-
-impl Default for Arrow {
-    fn default() -> Self {
-        Self {
-            body: Line::default(),
-            head: ArrowHead::default(),
-        }
     }
 }
 

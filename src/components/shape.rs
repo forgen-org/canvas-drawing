@@ -122,7 +122,7 @@ impl Shape {
 
         match &self.background_color {
             Some(color) => {
-                context.set_fill_style(&JsValue::from_str(&color));
+                context.set_fill_style(&JsValue::from_str(color));
                 context.fill_with_path_2d(&path);
             }
             None => {}
